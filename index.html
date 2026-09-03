@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>The Twilight Zone — Watch Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Special+Elite&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0a0c;
+    --bg-panel:#131316;
+    --line:rgba(255,255,255,.09);
+    --ink:#eae7e0;
+    --ink-dim:#9a9aa0;
+    --ink-faint:#5f5f66;
+    --green:#54d98c;
+    --amber:#e3bd66;
+    --red:#d4726a;
+    --blue:#8fa8d6;
+    --glow: 0 0 18px rgba(143,168,214,.35);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter',system-ui,-apple-system,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh;
+    position:relative;
+    overflow-x:hidden;
+  }
+  body::before{
+    content:'';
+    position:fixed; inset:0;
+    background:repeating-linear-gradient(0deg, rgba(255,255,255,.025) 0px, transparent 1px, transparent 3px);
+    pointer-events:none;
+    z-index:50;
+  }
+  body::after{
+    content:'';
+    position:fixed; inset:0;
+    background:radial-gradient(ellipse at 50% 30%, transparent 40%, rgba(0,0,0,.55) 100%);
+    pointer-events:none;
+    z-index:49;
+  }
+  .wrap{max-width:480px;margin:0 auto;padding:0 0 90px;position:relative;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    height:250px;
+    overflow:hidden;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;
+    background:radial-gradient(circle at 50% 40%, #16161b 0%, #0a0a0c 70%);
+    border-bottom:1px solid var(--line);
+  }
+  .star-dot{position:absolute;background:#fff;border-radius:50%;animation:twinkle 3.2s ease-in-out infinite;}
+  @keyframes twinkle{0%,100%{opacity:.12}50%{opacity:.85}}
+  .vortex{
+    position:absolute;top:50%;left:50%;
+    width:340px;height:340px;
+    transform:translate(-50%,-50%);
+    opacity:.35;
+    animation:spin 40s linear infinite;
+  }
+  @keyframes spin{to{transform:translate(-50%,-50%) rotate(360deg);}}
+  .hero-content{position:relative;z-index:2;padding:0 20px;}
+  .eyebrow{
+    font-family:'Special Elite',monospace;
+    font-size:11px;
+    letter-spacing:.14em;
+    color:var(--ink-dim);
+    margin-bottom:6px;
+  }
+  .hero h1{
+    font-family:'Bebas Neue',sans-serif;
+    font-size:44px;
+    letter-spacing:.06em;
+    margin:0;
+    line-height:.95;
+    color:#f4f2ec;
+    text-shadow:var(--glow);
+  }
+  .hero .years{
+    font-family:'Special Elite',monospace;
+    color:var(--ink-dim);
+    font-size:13px;
+    margin-top:4px;
+  }
+  .hero .tagline{
+    margin-top:14px;
+    font-style:italic;
+    color:var(--blue);
+    font-size:14px;
+  }
+
+  /* ---------- NAV ---------- */
+  .nav{
+    position:sticky;top:0;z-index:40;
+    display:flex;gap:6px;
+    padding:10px 14px;
+    background:rgba(10,10,12,.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+    overflow-x:auto;
+    -ms-overflow-style:none;scrollbar-width:none;
+  }
+  .nav::-webkit-scrollbar{display:none;}
+  .nav button{
+    flex:0 0 auto;
+    background:transparent;
+    border:1px solid var(--line);
+    color:var(--ink-dim);
+    padding:7px 13px;
+    border-radius:20px;
+    font-size:12.5px;
+    font-family:'Inter',sans-serif;
+    font-weight:600;
+    white-space:nowrap;
+  }
+  .nav button.active{
+    color:#0a0a0c;
+    background:var(--blue);
+    border-color:var(--blue);
+  }
+
+  .section{padding:18px 16px 4px;}
+  .section h2{
+    font-family:'Bebas Neue',sans-serif;
+    letter-spacing:.04em;
+    font-size:22px;
+    margin:0 0 10px;
+    color:#f4f2ec;
+  }
+  .muted{color:var(--ink-dim);font-size:13.5px;line-height:1.5;}
+
+  /* ---------- PROGRESS ---------- */
+  .progress-card{
+    background:var(--bg-panel);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:14px 16px;
+    margin:10px 0;
+  }
+  .progress-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;}
+  .progress-num{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.03em;color:var(--blue);}
+  .progress-label{font-size:11.5px;color:var(--ink-faint);font-family:'Special Elite',monospace;letter-spacing:.05em;}
+  .bar{height:6px;border-radius:4px;background:#232327;overflow:hidden;}
+  .bar-fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--green));border-radius:4px;transition:width .4s ease;}
+
+  .quick-actions{display:flex;gap:8px;margin-top:12px;}
+  .quick-actions button{
+    flex:1;
+    background:#1a1a1f;
+    border:1px solid var(--line);
+    color:var(--ink);
+    padding:11px 6px;
+    border-radius:10px;
+    font-size:12.5px;
+    font-weight:600;
+    font-family:'Inter',sans-serif;
+  }
+
+  .note-box{
+    border:1px dashed var(--line);
+    border-radius:12px;
+    padding:12px 14px;
+    font-size:12.5px;
+    color:var(--ink-dim);
+    line-height:1.55;
+    margin:14px 0;
+  }
+  .note-box b{color:var(--ink);}
+
+  /* ---------- FILTER CONTROLS ---------- */
+  .filter-row{display:flex;gap:6px;overflow-x:auto;padding:2px 0 10px;-ms-overflow-style:none;scrollbar-width:none;}
+  .filter-row::-webkit-scrollbar{display:none;}
+  .filter-chip{
+    flex:0 0 auto;
+    border:1px solid var(--line);
+    background:#151519;
+    color:var(--ink-dim);
+    padding:6px 12px;
+    border-radius:16px;
+    font-size:12px;
+    font-weight:600;
+  }
+  .filter-chip.active{background:var(--ink);color:#0a0a0c;border-color:var(--ink);}
+  .genre-chip{
+    flex:0 0 auto;
+    border:1px solid var(--line);
+    background:#151519;
+    padding:6px 10px;
+    border-radius:14px;
+    font-size:14px;
+  }
+  .genre-chip.active{background:rgba(143,168,214,.22);border-color:var(--blue);}
+  .toggle-row{display:flex;align-items:center;justify-content:space-between;padding:8px 2px;font-size:13px;}
+  .switch{
+    width:38px;height:22px;border-radius:12px;background:#232327;position:relative;border:1px solid var(--line);flex:0 0 auto;
+  }
+  .switch.on{background:var(--green);border-color:var(--green);}
+  .switch::after{
+    content:'';position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#0a0a0c;transition:left .18s ease;
+  }
+  .switch.on::after{left:18px;background:#0a0a0c;}
+  .search-input{
+    width:100%;
+    background:#151519;
+    border:1px solid var(--line);
+    color:var(--ink);
+    padding:9px 12px;
+    border-radius:10px;
+    font-size:13px;
+    margin-bottom:10px;
+    font-family:'Inter',sans-serif;
+  }
+  .search-input::placeholder{color:var(--ink-faint);}
+
+  /* ---------- CARDS ---------- */
+  .card{
+    background:var(--bg-panel);
+    border:1px solid var(--line);
+    border-radius:12px;
+    margin-bottom:9px;
+    overflow:hidden;
+  }
+  .card.watched{border-color:rgba(84,217,140,.4);}
+  .card-head{
+    display:flex;align-items:center;gap:10px;
+    padding:11px 12px;
+  }
+  .chk{
+    width:22px;height:22px;flex:0 0 auto;
+    border-radius:6px;
+    border:1.5px solid var(--ink-faint);
+    background:transparent;
+    position:relative;
+  }
+  .chk.checked{background:var(--green);border-color:var(--green);}
+  .chk.checked::after{
+    content:'✓';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    color:#0a0a0c;font-size:13px;font-weight:700;
+  }
+  .card-title{flex:1;min-width:0;}
+  .ep-code{font-family:'Special Elite',monospace;font-size:10.5px;color:var(--ink-faint);letter-spacing:.03em;}
+  .ep-name{font-size:14.5px;font-weight:600;color:var(--ink);line-height:1.3;margin-top:1px;}
+  .tier-dot{font-size:15px;flex:0 0 auto;}
+  .chips-row{display:flex;gap:5px;flex-wrap:wrap;padding:0 12px 10px 44px;}
+  .chip{font-size:12px;background:#1c1c21;border-radius:8px;padding:2px 7px;color:var(--ink-dim);}
+  .chip.rec{background:rgba(143,168,214,.2);color:var(--blue);font-weight:600;font-size:10.5px;text-transform:uppercase;letter-spacing:.04em;}
+  .cut-rank{
+    font-family:'Bebas Neue',sans-serif;
+    font-size:15px;color:var(--blue);
+    width:22px;text-align:center;flex:0 0 auto;
+  }
+
+  .card-detail{
+    display:none;
+    padding:0 14px 14px 14px;
+    border-top:1px solid var(--line);
+  }
+  .card.open .card-detail{display:block;padding-top:12px;}
+  .nosearch{
+    background:rgba(212,114,106,.15);
+    border:1px solid rgba(212,114,106,.4);
+    color:#e79b95;
+    font-size:11.5px;
+    font-weight:700;
+    padding:6px 9px;
+    border-radius:8px;
+    margin-bottom:10px;
+    letter-spacing:.02em;
+  }
+  .desc{font-size:13.5px;color:var(--ink-dim);line-height:1.55;margin:0 0 12px;}
+  .rate-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+  .stars{display:flex;gap:3px;font-size:18px;}
+  .star{color:#3a3a40;cursor:pointer;}
+  .star.on{color:var(--amber);}
+  .fav{background:transparent;border:none;font-size:19px;padding:0;}
+  .note{
+    width:100%;
+    background:#0f0f12;
+    border:1px solid var(--line);
+    border-radius:8px;
+    color:var(--ink);
+    font-size:12.5px;
+    padding:8px 10px;
+    min-height:44px;
+    resize:vertical;
+    font-family:'Inter',sans-serif;
+  }
+  .note::placeholder{color:var(--ink-faint);}
+
+  .empty{
+    text-align:center;
+    color:var(--ink-faint);
+    font-size:13px;
+    padding:30px 20px;
+    font-style:italic;
+  }
+
+  .cut-intro{
+    background:linear-gradient(135deg, rgba(143,168,214,.12), rgba(84,217,140,.06));
+    border:1px solid rgba(143,168,214,.3);
+    border-radius:14px;
+    padding:14px 16px;
+    font-size:13px;
+    color:var(--ink-dim);
+    line-height:1.55;
+    margin-bottom:14px;
+  }
+  .cut-intro b{color:var(--blue);}
+
+  .stats-block{margin-bottom:22px;}
+  .stats-block h3{
+    font-family:'Special Elite',monospace;
+    font-size:12.5px;
+    letter-spacing:.05em;
+    color:var(--ink-dim);
+    text-transform:uppercase;
+    margin:0 0 8px;
+  }
+
+  .reset-link{
+    text-align:center;
+    font-size:11.5px;
+    color:var(--ink-faint);
+    margin-top:26px;
+    text-decoration:underline;
+    background:none;border:none;
+  }
+  #loading{
+    text-align:center;padding:60px 20px;color:var(--ink-faint);font-family:'Special Elite',monospace;font-size:13px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap" id="app">
+  <div id="loading">sintonizando o sinal…</div>
+</div>
+
+<script>
+/* ============ DATA ============ */
+const GENRE_MAP = {
+  H:{e:'👻',l:'Terror / Sobrenatural'},
+  P:{e:'🧠',l:'Psicológico / Paranoia'},
+  S:{e:'🛸',l:'Ficção Científica'},
+  D:{e:'😨',l:'Perturbador'},
+  E:{e:'😭',l:'Emocional'},
+  C:{e:'🎭',l:'Comédia / Leve'},
+  A:{e:'👽',l:'Alienígenas'},
+  T:{e:'⏳',l:'Viagem no Tempo'},
+  M:{e:'🔮',l:'Mistério / Sobrenatural'},
+  X:{e:'🤯',l:'Plot Twist'}
+};
+const TIER_MAP = {
+  g:{e:'🟢',l:'Essencial'},
+  y:{e:'🟡',l:'Opcional'},
+  r:{e:'🔴',l:'Pode pular'}
+};
+
+// [season, ep, title, tier, genres, desc, recommended, noSearch, danteCutRank]
+const RAW = [
+[1,1,"Where Is Everybody?","g","PMX","Um homem sem memória caminha por uma cidade completamente deserta.",1,0,1],
+[1,2,"One for the Angels","y","EM","Um vendedor de rua tenta escapar de um encontro com a Morte.",0,0,0],
+[1,3,"Mr. Denton on Doomsday","y","M","Um pistoleiro decadente recupera a pontaria de um jeito estranho.",0,0,0],
+[1,4,"The Sixteen-Millimeter Shrine","y","EP","Uma ex-estrela de cinema se refugia demais no próprio passado.",0,0,0],
+[1,5,"Walking Distance","g","EMX","Um executivo estressado encontra sua cidade natal exatamente como era.",1,0,0],
+[1,6,"Escape Clause","y","DMX","Um hipocondríaco troca a alma por imortalidade — com um porém.",0,0,0],
+[1,7,"The Lonely","y","SE","Um prisioneiro isolado em um asteroide recebe uma companhia incomum.",0,0,0],
+[1,8,"Time Enough at Last","g","DX","Um homem finalmente tem tempo para ler — depois do fim do mundo.",1,0,2],
+[1,9,"Perchance to Dream","g","PDX","Um homem insone teme que dormir vai matá-lo.",1,0,3],
+[1,10,"Judgment Night","y","MD","Um passageiro em um navio tem um pressentimento terrível sobre a viagem.",0,0,0],
+[1,11,"And When the Sky Was Opened","y","SDM","Astronautas voltam de uma missão e algo neles está errado.",0,0,0],
+[1,12,"What You Need","y","M","Um vendedor ambulante parece sempre saber do que as pessoas precisam.",0,0,0],
+[1,13,"The Four of Us Are Dying","y","M","Um golpista descobre que pode roubar o rosto de qualquer um.",0,0,0],
+[1,14,"Third from the Sun","g","SDX","Dois cientistas planejam fugir de um planeta à beira da guerra.",0,1,0],
+[1,15,"I Shot an Arrow into the Air","g","SMX","Astronautas ficam à deriva em um asteroide desconhecido.",0,0,0],
+[1,16,"The Hitch-Hiker","g","HDX","Uma mulher dirigindo sozinha começa a ver o mesmo carona em toda parte.",1,0,4],
+[1,17,"The Fever","y","P","Um homem racional é consumido pela obsessão por uma máquina caça-níqueis.",0,0,0],
+[1,18,"The Last Flight","y","ST","Um piloto da Primeira Guerra atravessa uma nuvem e pousa décadas à frente.",0,0,0],
+[1,19,"The Purple Testament","y","DM","Um soldado passa a enxergar quem está prestes a morrer.",0,0,0],
+[1,20,"Elegy","y","SM","Astronautas encontram um planeta parado no tempo.",0,0,0],
+[1,21,"Mirror Image","g","PDX","Uma mulher começa a ser confundida com alguém idêntico a ela.",1,0,0],
+[1,22,"The Monsters Are Due on Maple Street","g","PDX","Um apagão faz uma vizinhança inteira se voltar contra si mesma.",1,0,5],
+[1,23,"A World of Difference","y","PX","Um homem de negócios passa a duvidar de qual é sua vida real.",0,0,0],
+[1,24,"Long Live Walter Jameson","y","ME","Um professor de história esconde um segredo antigo demais para ser real.",0,0,0],
+[1,25,"People Are Alike All Over","y","SDX","Um astronauta em Marte é recebido com uma hospitalidade suspeita.",0,0,0],
+[1,26,"Execution","y","ST","Um fora-da-lei do velho oeste é arrancado do cadafalso pelo tempo.",0,0,0],
+[1,27,"The Big Tall Wish","y","E","Um garoto faz um pedido que pode mudar o resultado de uma luta.",0,0,0],
+[1,28,"A Nice Place to Visit","g","MX","Um assaltante morto ganha tudo que sempre quis — fácil demais.",1,0,0],
+[1,29,"Nightmare as a Child","y","PM","Uma professora é visitada por uma garotinha que sabe demais sobre seu passado.",0,0,0],
+[1,30,"A Stop at Willoughby","g","EMX","Um executivo esgotado sonha, sempre igual, com uma cidadezinha do século 19.",1,0,0],
+[1,31,"The Chaser","y","CM","Uma poção do amor funciona bem demais.",0,0,0],
+[1,32,"A Passage for Trumpet","y","EM","Um trompetista destruído ganha uma segunda chance após um acidente.",0,0,0],
+[1,33,"Mr. Bevis","r","C","Um anjo da guarda tenta consertar o dia de um homem azarado.",0,0,0],
+[1,34,"The After Hours","g","HPX","Uma mulher é avisada de que o andar onde comprou algo não existe.",1,0,0],
+[1,35,"The Mighty Casey","r","CS","Um time de beisebol aposta tudo em um lançador robô.",0,0,0],
+[1,36,"A World of His Own","y","CM","Um escritor descobre que pode dar vida a qualquer coisa que descrever.",0,0,0],
+[2,1,"King Nine Will Not Return","y","PD","O único sobrevivente de um acidente não encontra vestígio da tripulação.",0,0,0],
+[2,2,"The Man in the Bottle","y","MX","Um gênio concede quatro desejos a um casal em dificuldades.",0,0,0],
+[2,3,"Nervous Man in a Four Dollar Room","y","P","Um gângster ansioso enfrenta a si mesmo antes de uma missão perigosa.",0,0,0],
+[2,4,"A Thing About Machines","y","HP","Um homem arrogante tem certeza de que os aparelhos o odeiam.",0,0,0],
+[2,5,"The Howling Man","g","HMX","Um viajante perdido encontra um mosteiro que guarda um prisioneiro uivante.",1,1,6],
+[2,6,"Eye of the Beholder","g","DX","Uma mulher enfaixada espera o resultado de uma cirurgia que vai definir sua vida.",1,1,7],
+[2,7,"Nick of Time","g","PM","Um casal recém-casado fica dependente demais de uma máquina de sorte.",1,0,0],
+[2,8,"The Lateness of the Hour","y","SPX","Uma filha se incomoda com a presença constante dos criados robóticos do pai.",0,0,0],
+[2,9,"The Trouble with Templeton","y","ET","Um ator saudoso encontra um jeito de rever o próprio passado.",0,0,0],
+[2,10,"A Most Unusual Camera","y","MX","Ladrões descobrem que uma câmera roubada revela o futuro.",0,0,0],
+[2,11,"The Night of the Meek","y","EC","Um Papai Noel de loja, demitido na véspera de Natal, encontra um saco mágico.",0,0,0],
+[2,12,"Dust","y","EM","Um pai desesperado compra pó mágico para salvar o filho da forca.",0,0,0],
+[2,13,"Back There","y","TE","Um homem viaja no tempo até a véspera de um assassinato histórico.",0,0,0],
+[2,14,"The Whole Truth","y","CM","Um vendedor de carros usados é amaldiçoado a só dizer a verdade.",0,0,0],
+[2,15,"The Invaders","g","HSDX","Uma mulher isolada é cercada por seres minúsculos vindos de algum lugar.",1,0,8],
+[2,16,"A Penny for Your Thoughts","y","CM","Uma moeda cai de pé e um bancário passa a ouvir os pensamentos alheios.",0,0,0],
+[2,17,"Twenty-Two","g","HPDX","Uma dançarina internada tem sempre o mesmo pesadelo, no mesmo quarto.",1,0,9],
+[2,18,"The Odyssey of Flight 33","g","STD","Um avião comercial acelera demais e algo no tempo dá errado.",0,0,0],
+[2,19,"Mr. Dingle, the Strong","r","CA","Um vendedor tímido ganha força sobre-humana de um visitante alienígena.",0,0,0],
+[2,20,"Static","y","EM","Um velho rádio de sótão sintoniza estações de outra época.",0,0,0],
+[2,21,"The Prime Mover","y","CM","Um jogador usa os poderes do amigo para ganhar em Las Vegas.",0,0,0],
+[2,22,"Long Distance Call","g","HDM","Um menino continua conversando com a avó por um telefone de brinquedo.",1,0,0],
+[2,23,"A Hundred Yards Over the Rim","y","TE","Um pioneiro de 1847 atravessa um limite que não deveria existir.",0,0,0],
+[2,24,"The Rip Van Winkle Caper","y","MX","Ladrões usam animação suspensa para deixar o tempo a seu favor.",0,0,0],
+[2,25,"The Silence","g","PX","Um clube aposta que um sócio tagarela não aguenta ficar calado por um ano.",1,0,0],
+[2,26,"Shadow Play","g","PDX","Um condenado à morte insiste que tudo aquilo é só um sonho.",1,0,0],
+[2,27,"The Mind and the Matter","y","CM","Um homem descobre que pode remodelar o mundo só de pensar.",0,0,0],
+[2,28,"Will the Real Martian Please Stand Up?","g","AMX","Policiais tentam descobrir qual passageiro de uma lanchonete não é humano.",1,1,0],
+[2,29,"The Obsolete Man","g","DM","Um bibliotecário é condenado por um regime que decide quem é útil.",1,0,10],
+[3,1,"Two","y","SE","Dois sobreviventes de lados opostos de uma guerra se encontram numa cidade vazia.",0,0,0],
+[3,2,"The Arrival","g","SMX","Um avião pousa sem ninguém a bordo, e cada investigador vê algo diferente.",1,0,0],
+[3,3,"The Shelter","g","PD","Um alerta de ataque nuclear vira vizinhos uns contra os outros.",1,0,0],
+[3,4,"The Passersby","y","ME","Soldados feridos passam, um a um, pela casa de uma mulher no fim da guerra.",0,0,0],
+[3,5,"A Game of Pool","y","M","Um jogador de sinuca aceita um desafio vindo de além da campa.",0,0,0],
+[3,6,"The Mirror","y","PM","Um ditador usa um espelho para enxergar os próprios inimigos.",0,0,0],
+[3,7,"The Grave","y","HM","Um pistoleiro é desafiado a visitar o túmulo de quem jurou se vingar.",0,0,0],
+[3,8,"It's a Good Life","g","HPD","Um menino com poderes assustadores controla tudo em sua pequena cidade.",1,0,11],
+[3,9,"Deaths-Head Revisited","g","DM","Um ex-oficial nazista revisita o campo que um dia comandou.",1,0,0],
+[3,10,"The Midnight Sun","g","DS","Duas vizinhas tentam sobreviver enquanto a Terra muda de órbita.",1,0,12],
+[3,11,"Still Valley","y","HM","Um soldado confederado encontra uma cidade inteira congelada no lugar.",0,0,0],
+[3,12,"The Jungle","y","HM","Um engenheiro é amaldiçoado por interferir em terras que não deveria.",0,0,0],
+[3,13,"Once Upon a Time","r","CT","Um zelador atravessa décadas usando um capacete do tempo.",0,0,0],
+[3,14,"Five Characters in Search of an Exit","g","PMX","Cinco pessoas acordam em um cilindro, sem lembrar como chegaram ali.",1,0,13],
+[3,15,"A Quality of Mercy","y","TE","Um tenente ganha a chance de ver a guerra pelo lado oposto.",0,0,0],
+[3,16,"Nothing in the Dark","g","DE","Uma idosa reclusa teme que qualquer visitante seja a Morte disfarçada.",1,0,0],
+[3,17,"One More Pallbearer","y","PD","Um milionário arma um falso apocalipse para testar quem ele despreza.",0,0,0],
+[3,18,"Dead Man's Shoes","y","HM","Um sem-teto veste os sapatos de um morto — e algo nele muda.",0,0,0],
+[3,19,"The Hunt","y","EM","Um caçador percebe que algo mudou desde que voltou da mata.",0,0,0],
+[3,20,"Showdown with Rance McGrew","r","C","Um ator arrogante de faroeste encontra um cowboy real demais.",0,0,0],
+[3,21,"Kick the Can","y","EM","Moradores de um asilo tentam recuperar a juventude com uma brincadeira antiga.",0,0,0],
+[3,22,"A Piano in the House","y","P","Um piano especial revela o que as pessoas escondem de si mesmas.",0,0,0],
+[3,23,"The Last Rites of Jeff Myrtlebank","y","HM","Um homem se senta no próprio caixão e nunca mais é o mesmo.",0,0,0],
+[3,24,"To Serve Man","g","SAX","Alienígenas altos chegam à Terra oferecendo curas para todos os males.",1,1,14],
+[3,25,"The Fugitive","y","SE","Um fugitivo de outro mundo faz amizade com uma garota com deficiência.",0,0,0],
+[3,26,"Little Girl Lost","g","SDX","Uma menina desaparece do próprio quarto sem deixar rastro.",1,0,15],
+[3,27,"Person or Persons Unknown","g","PDX","Um homem acorda e descobre que ninguém, nem a própria esposa, o reconhece.",1,0,16],
+[3,28,"The Little People","y","SD","Um astronauta se torna um deus para uma raça minúscula.",0,0,0],
+[3,29,"Four O'Clock","y","PX","Um homem obcecado por moral planeja encolher quem ele considera mau.",0,0,0],
+[3,30,"Hocus-Pocus and Frisby","r","CA","Um contador de histórias mentiroso chama a atenção errada.",0,0,0],
+[3,31,"The Trade-Ins","y","ES","Um casal idoso quer corpos novos, mas só pode pagar por um.",0,0,0],
+[3,32,"The Gift","y","SE","Um visitante alienígena tenta entregar um presente a uma vila desconfiada.",0,0,0],
+[3,33,"The Dummy","g","HPX","Um ventríloquo tem certeza de que seu boneco está vivo.",1,0,17],
+[3,34,"Young Man's Fancy","y","PM","Um recém-casado se recusa a deixar a casa onde cresceu.",0,0,0],
+[3,35,"I Sing the Body Electric","y","ES","Um pai viúvo compra uma avó robô para cuidar dos filhos.",0,0,0],
+[3,36,"Cavender Is Coming","r","C","Uma trapalhona ganha um anjo da guarda tão desastrado quanto ela.",0,0,0],
+[3,37,"The Changing of the Guard","y","E","Um professor aposentado contempla o próprio valor numa véspera de Natal.",0,0,0],
+[4,1,"In His Image","y","HPX","Um homem é atormentado por impulsos violentos e lacunas de memória.",0,0,0],
+[4,2,"The Thirty-Fathom Grave","g","HM","Um som de batidas leva um navio até um submarino afundado na guerra.",0,0,0],
+[4,3,"Valley of the Shadow","y","SM","Um repórter descobre uma cidade com tecnologia avançada demais para ser real.",0,0,0],
+[4,4,"He's Alive","g","PD","Um líder de extrema-direita em ascensão recebe conselhos de um estranho nas sombras.",1,0,0],
+[4,5,"Mute","y","SE","Uma menina telepata é a única sobrevivente de um incêndio.",0,0,0],
+[4,6,"Death Ship","g","SPX","Astronautas encontram uma cópia idêntica da própria nave — e de si mesmos.",1,0,18],
+[4,7,"Jess-Belle","y","HE","Uma jovem recorre a uma bruxa para reconquistar o próprio amor.",0,0,0],
+[4,8,"Miniature","g","PM","Um funcionário tímido vê as miniaturas de uma casa de bonecas ganharem vida.",1,0,0],
+[4,9,"Printer's Devil","g","HM","Um jornal à beira da falência é salvo por um funcionário misterioso demais.",1,0,0],
+[4,10,"No Time Like the Past","y","TE","Um cientista viaja ao passado tentando mudar a história.",0,0,0],
+[4,11,"The Parallel","g","SPM","Um astronauta volta de uma missão e algo sutil está diferente em casa.",1,0,0],
+[4,12,"I Dream of Genie","r","C","Um funcionário de escritório encontra uma lâmpada com um gênio dentro.",0,0,0],
+[4,13,"The New Exhibit","g","HPX","Um curador de museu de cera guarda em casa as figuras de cinco assassinos famosos.",1,0,0],
+[4,14,"Of Late I Think of Cliffordville","y","TM","Um magnata troca a própria fortuna por uma volta ao passado.",0,0,0],
+[4,15,"The Incredible World of Horace Ford","y","PT","Um designer de brinquedos revisita o bairro da própria infância — que não deveria mais existir assim.",0,0,0],
+[4,16,"On Thursday We Leave for Home","g","SP","O líder de uma colônia espacial se recusa a abrir mão do controle.",1,0,0],
+[4,17,"Passage on the Lady Anne","y","ME","Um casal em crise embarca num cruzeiro cheio de passageiros idosos.",0,0,0],
+[4,18,"The Bard","r","C","Um roteirista invoca o espírito de Shakespeare para escrever por ele.",0,0,0],
+[5,1,"In Praise of Pip","y","EM","Um agenciador de apostas reencontra o filho ferido numa noite fora do tempo.",0,0,0],
+[5,2,"Steel","y","SE","Um empresário de boxe tenta tirar o máximo de um robô lutador quebrado.",0,0,0],
+[5,3,"Nightmare at 20,000 Feet","g","HPDX","Um homem em recuperação vê uma criatura na asa do avião — e ninguém acredita nele.",1,0,19],
+[5,4,"A Kind of a Stopwatch","y","CM","Um chato de plantão ganha um cronômetro capaz de parar o tempo.",0,0,0],
+[5,5,"The Last Night of a Jockey","y","MX","Um jóquei desonrado tem seu desejo de ser \"grande\" atendido.",0,0,0],
+[5,6,"Living Doll","g","HDX","Um padrasto se sente ameaçado pela nova boneca falante da enteada.",1,1,20],
+[5,7,"The Old Man in the Cave","y","SD","Sobreviventes de uma guerra nuclear seguem as ordens de uma voz que nunca aparece.",0,0,0],
+[5,8,"Uncle Simon","y","HP","Uma sobrinha exausta não encontra paz nem depois que o tio morre.",0,0,0],
+[5,9,"Probe 7, Over and Out","y","SX","Um astronauta cai em um planeta desconhecido e não está tão sozinho quanto pensa.",0,0,0],
+[5,10,"The 7th Is Made Up of Phantoms","y","TM","Soldados numa excursão histórica se veem envolvidos demais numa batalha do passado.",0,0,0],
+[5,11,"A Short Drink from a Certain Fountain","y","DX","Um homem mais velho testa um soro de juventude não testado.",0,0,0],
+[5,12,"Ninety Years Without Slumbering","y","PE","Um velho acredita que vai morrer no instante em que seu relógio parar.",0,0,0],
+[5,13,"Ring-a-Ding Girl","y","MX","Um anel de fã-clube atrai uma atriz de volta para a cidade natal.",0,0,0],
+[5,14,"You Drive","y","PM","Um motorista que fugiu de um atropelamento é perseguido pelo próprio carro.",0,0,0],
+[5,15,"The Long Morrow","y","SE","Um astronauta se apaixona pouco antes de uma missão de décadas.",0,0,0],
+[5,16,"The Self-Improvement of Salvadore Ross","y","PM","Um pretendente descobre que pode trocar partes de si por partes de outros.",0,0,0],
+[5,17,"Number 12 Looks Just Like You","g","SPD","Numa sociedade futura, uma jovem resiste à cirurgia obrigatória que todos fazem.",1,0,0],
+[5,18,"Black Leather Jackets","y","AS","Três motoqueiros chegam a uma cidadezinha escondendo o que realmente são.",0,0,0],
+[5,19,"Night Call","g","HDX","Uma senhora idosa começa a receber ligações assustadoras à noite.",1,1,0],
+[5,20,"From Agnes—With Love","r","CS","Um programador recebe conselhos amorosos de um computador apaixonado por ele.",0,0,0],
+[5,21,"Spur of the Moment","y","PM","Uma noiva é perseguida por uma misteriosa cavaleira vestida de preto.",0,0,0],
+[5,22,"An Occurrence at Owl Creek Bridge","g","PX","Um homem prestes a ser enforcado vive um momento que se estica no tempo.",1,1,0],
+[5,23,"Queen of the Nile","y","HM","Um colunista investiga o segredo da juventude eterna de uma atriz.",0,0,0],
+[5,24,"What's in the Box","y","PM","A TV de um casal em crise começa a mostrar coisas que não deveria.",0,0,0],
+[5,25,"The Masks","g","DMX","Um patriarca moribundo exige que a família use máscaras no Carnaval.",1,0,0],
+[5,26,"I Am the Night—Color Me Black","g","DM","Numa cidade prestes a enforcar um homem, o sol simplesmente não nasce.",1,0,0],
+[5,27,"Sounds and Silences","y","PC","Um homem obcecado por ruídos vê a própria vida virar do avesso.",0,0,0],
+[5,28,"Caesar and Me","r","C","Um ventríloquo em dificuldades é convencido pelo próprio boneco a roubar.",0,0,0],
+[5,29,"The Jeopardy Room","g","PDX","Um exilado político vira alvo de um jogo perigoso armado por um assassino.",1,0,0],
+[5,30,"Stopover in a Quiet Town","g","HDX","Um casal acorda de ressaca numa cidade estranhamente vazia.",1,1,0],
+[5,31,"The Encounter","g","PD","Uma espada antiga reacende uma tensão entre um veterano e um jovem.",1,0,0],
+[5,32,"Mr. Garrity and the Graves","y","HM","Um viajante misterioso oferece trazer os mortos de volta — por um preço.",0,0,0],
+[5,33,"The Brain Center at Whipple's","y","SD","Um dono de fábrica troca todos os funcionários por máquinas.",0,0,0],
+[5,34,"Come Wander with Me","g","HMX","Um cantor busca uma canção autêntica nas montanhas — e encontra mais do que queria.",1,0,0],
+[5,35,"The Fear","g","AD","Uma mulher isolada e um policial testemunham luzes estranhas no céu.",1,0,0],
+[5,36,"The Bewitchin' Pool","y","EM","Duas crianças encontram uma saída para os pais brigando — pela piscina.",0,0,0]
+];
+
+const EPISODES = RAW.map((row,i)=>({
+  s:row[0], e:row[1], title:row[2], tier:row[3], genres:row[4].split(''),
+  desc:row[5], rec:!!row[6], ns:!!row[7], cut:row[8],
+  overall:i+1, dur: row[0]===4?51:25,
+  id: row[0]+'x'+String(row[1]).padStart(2,'0')
+}));
+const TOTAL = EPISODES.length;
+const CUT_LIST = EPISODES.filter(e=>e.cut>0).sort((a,b)=>a.cut-b.cut);
+
+/* ============ STATE ============ */
+let progress = {};
+let view = 'home';
+let seasonFilter = 'all';
+let genreFilter = new Set();
+let essentialOnly = false;
+let searchTerm = '';
+let saveTimer = null;
+
+function getP(id){ return progress[id] || {w:false,r:0,f:false,note:''}; }
+function setP(id, patch){ progress[id] = Object.assign(getP(id), patch); scheduleSave(); }
+function scheduleSave(){
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(async ()=>{
+    try{ await window.storage.set('tz-progress-v1', JSON.stringify(progress), false); }
+    catch(e){ console.error('save failed', e); }
+  }, 350);
+}
+async function loadProgress(){
+  try{
+    const res = await window.storage.get('tz-progress-v1');
+    if(res && res.value) progress = JSON.parse(res.value);
+  }catch(e){ progress = {}; }
+  render();
+}
+
+/* ============ HELPERS ============ */
+function overallProgress(){ return { w: EPISODES.filter(ep=>getP(ep.id).w).length, total: TOTAL }; }
+function cutProgress(){ return { w: CUT_LIST.filter(ep=>getP(ep.id).w).length, total: CUT_LIST.length }; }
+
+function filterEpisodes(list){
+  return list.filter(ep=>{
+    if(seasonFilter!=='all' && ep.s !== Number(seasonFilter)) return false;
+    if(essentialOnly && ep.tier!=='g') return false;
+    if(genreFilter.size>0 && !ep.genres.some(g=>genreFilter.has(g))) return false;
+    if(searchTerm && !ep.title.toLowerCase().includes(searchTerm.toLowerCase())) return false;
+    return true;
+  });
+}
+
+function starsBg(n){
+  let s='';
+  for(let i=0;i<n;i++){
+    const top=(Math.random()*100).toFixed(1);
+    const left=(Math.random()*100).toFixed(1);
+    const delay=(Math.random()*4).toFixed(2);
+    const size=(Math.random()*1.3+0.8).toFixed(1);
+    s+=`<span class="star-dot" style="top:${top}%;left:${left}%;animation-delay:${delay}s;width:${size}px;height:${size}px;"></span>`;
+  }
+  return s;
+}
+
+function renderCard(ep, opts){
+  opts = opts || {};
+  const p = getP(ep.id);
+  const tier = TIER_MAP[ep.tier];
+  const genreChips = ep.genres.map(g=>`<span class="chip" title="${GENRE_MAP[g].l}">${GENRE_MAP[g].e}</span>`).join('');
+  const starsHtml = [1,2,3,4,5].map(n=>`<span class="star ${p.r>=n?'on':''}" data-n="${n}">★</span>`).join('');
+  const rankTag = opts.rank ? `<div class="cut-rank">${opts.rank}</div>` : '';
+  return `
+  <div class="card ${p.w?'watched':''}" data-id="${ep.id}">
+    <div class="card-head">
+      ${rankTag}
+      <button class="chk ${p.w?'checked':''}" aria-label="assistido"></button>
+      <div class="card-title">
+        <div class="ep-code">T${ep.s}E${String(ep.e).padStart(2,'0')} · ${ep.dur} min</div>
+        <div class="ep-name">${ep.title}</div>
+      </div>
+      <div class="tier-dot" title="${tier.l}">${tier.e}</div>
+    </div>
+    <div class="chips-row">${genreChips}${ep.rec?'<span class="chip rec">pra você</span>':''}</div>
+    <div class="card-detail">
+      ${ep.ns?'<div class="nosearch">⚠️ NÃO PESQUISE ANTES DE ASSISTIR</div>':''}
+      <p class="desc">${ep.desc}</p>
+      <div class="rate-row">
+        <div class="stars">${starsHtml}</div>
+        <button class="fav">${p.f?'❤️':'🤍'}</button>
+      </div>
+      <textarea class="note" placeholder="nota pessoal (opcional)">${p.note||''}</textarea>
+    </div>
+  </div>`;
+}
+
+function cardListHtml(list, opts){
+  if(list.length===0) return '<div class="empty">nada por aqui com esses filtros.</div>';
+  return list.map(ep=>renderCard(ep, opts && opts.rankMap ? {rank:opts.rankMap[ep.id]} : {})).join('');
+}
+
+/* ============ VIEWS ============ */
+function navHtml(){
+  const items = [
+    ['home','🏠 Início'],
+    ['seasons','📺 Temporadas'],
+    ["cut","⭐ Dante's Cut"],
+    ['stats','📊 Favoritos']
+  ];
+  return `<div class="nav">${items.map(([k,l])=>`<button data-view="${k}" class="${view===k?'active':''}">${l}</button>`).join('')}</div>`;
+}
+
+function heroHtml(){
+  return `
+  <div class="hero">
+    <div class="vortex">
+      <svg viewBox="0 0 200 200" width="100%" height="100%">
+        <circle cx="100" cy="100" r="95" fill="none" stroke="#8fa8d6" stroke-width="0.6" opacity="0.5"/>
+        <circle cx="100" cy="100" r="72" fill="none" stroke="#8fa8d6" stroke-width="0.6" opacity="0.4"/>
+        <circle cx="100" cy="100" r="50" fill="none" stroke="#54d98c" stroke-width="0.6" opacity="0.35"/>
+        <circle cx="100" cy="100" r="30" fill="none" stroke="#eae7e0" stroke-width="0.6" opacity="0.3"/>
+        <circle cx="100" cy="100" r="12" fill="none" stroke="#eae7e0" stroke-width="0.8" opacity="0.4"/>
+      </svg>
+    </div>
+    ${starsBg(50)}
+    <div class="hero-content">
+      <div class="eyebrow">SÉRIE ANTOLÓGICA · CBS</div>
+      <h1>THE TWILIGHT<br>ZONE</h1>
+      <div class="years">1959 – 1964</div>
+      <div class="tagline">"Você está entrando em outra dimensão…"</div>
+    </div>
+  </div>`;
+}
+
+function renderHome(){
+  const op = overallProgress();
+  const cp = cutProgress();
+  return `
+  ${heroHtml()}
+  ${navHtml()}
+  <div class="section">
+    <div class="progress-card">
+      <div class="progress-top"><span class="progress-label">PROGRESSO GERAL</span><span class="progress-num">${op.w} / ${op.total}</span></div>
+      <div class="bar"><div class="bar-fill" style="width:${(op.w/op.total*100).toFixed(1)}%"></div></div>
+    </div>
+    <div class="progress-card">
+      <div class="progress-top"><span class="progress-label">⭐ DANTE'S CUT</span><span class="progress-num">${cp.w} / ${cp.total}</span></div>
+      <div class="bar"><div class="bar-fill" style="width:${(cp.w/cp.total*100).toFixed(1)}%"></div></div>
+      <div class="quick-actions">
+        <button data-view="cut">Ver a rota rápida</button>
+        <button data-view="seasons">Explorar tudo</button>
+      </div>
+    </div>
+    <div class="note-box">
+      <b>Sem spoilers, por padrão.</b> Descrições e filtros nunca revelam finais, reviravoltas ou identidades. Episódios com twists muito famosos vêm com o aviso ⚠️ NÃO PESQUISE ANTES DE ASSISTIR.<br><br>
+      Quando terminar um episódio, é só me contar aqui no chat (ex: "terminei o S01E01" ou "acabei de ver o primeiro") que a gente comenta sem estragar nada do que vem depois.
+    </div>
+    <button class="reset-link" id="reset-btn">apagar todo o progresso</button>
+  </div>`;
+}
+
+function renderSeasons(){
+  const seasonChips = ['all',1,2,3,4,5].map(s=>{
+    const label = s==='all' ? 'Todas' : `T${s}`;
+    return `<button class="filter-chip ${seasonFilter===String(s)||(seasonFilter==='all'&&s==='all')?'active':''}" data-season="${s}">${label}</button>`;
+  }).join('');
+  const genreChips = Object.keys(GENRE_MAP).map(g=>{
+    return `<button class="genre-chip ${genreFilter.has(g)?'active':''}" data-genre="${g}" title="${GENRE_MAP[g].l}">${GENRE_MAP[g].e}</button>`;
+  }).join('');
+  const filtered = filterEpisodes(EPISODES);
+  const w = filtered.filter(ep=>getP(ep.id).w).length;
+  return `
+  ${navHtml()}
+  <div class="section">
+    <h2>📺 Todas as temporadas</h2>
+    <input class="search-input" id="search-input" placeholder="buscar por título..." value="${searchTerm}">
+    <div class="filter-row">${seasonChips}</div>
+    <div class="filter-row">${genreChips}</div>
+    <div class="toggle-row">
+      <span>Mostrar só essenciais 🟢</span>
+      <div class="switch ${essentialOnly?'on':''}" id="essential-toggle"></div>
+    </div>
+    <div class="progress-card" style="margin-top:6px;">
+      <div class="progress-top"><span class="progress-label">NESTE FILTRO</span><span class="progress-num">${w} / ${filtered.length}</span></div>
+      <div class="bar"><div class="bar-fill" style="width:${filtered.length? (w/filtered.length*100).toFixed(1):0}%"></div></div>
+    </div>
+    <div id="ep-list">${cardListHtml(filtered)}</div>
+  </div>`;
+}
+
+function renderCut(){
+  const cp = cutProgress();
+  const rankMap = {};
+  CUT_LIST.forEach(ep=>rankMap[ep.id]=ep.cut);
+  return `
+  ${navHtml()}
+  <div class="section">
+    <h2>⭐ Dante's Cut</h2>
+    <div class="cut-intro">
+      Os <b>20 episódios essenciais</b> pra sentir o melhor da série sem precisar ver os 156. Terror, paranoia, ficção científica e aquele clima de "tem alguma coisa muito errada aqui" — na ordem recomendada.
+    </div>
+    <div class="progress-card">
+      <div class="progress-top"><span class="progress-label">ROTA RÁPIDA</span><span class="progress-num">${cp.w} / ${cp.total}</span></div>
+      <div class="bar"><div class="bar-fill" style="width:${(cp.w/cp.total*100).toFixed(1)}%"></div></div>
+    </div>
+    <div id="ep-list">${cardListHtml(CUT_LIST, {rankMap})}</div>
+  </div>`;
+}
+
+function renderStats(){
+  const favs = EPISODES.filter(ep=>getP(ep.id).f);
+  const scary = EPISODES.filter(ep=>{const p=getP(ep.id); return p.w && p.r>0 && (ep.genres.includes('H')||ep.genres.includes('D'));}).sort((a,b)=>getP(b.id).r-getP(a.id).r).slice(0,5);
+  const weird = EPISODES.filter(ep=>{const p=getP(ep.id); return p.w && p.r>0 && (ep.genres.includes('P')||ep.genres.includes('M'));}).sort((a,b)=>getP(b.id).r-getP(a.id).r).slice(0,5);
+  const disappointing = EPISODES.filter(ep=>{const p=getP(ep.id); return p.w && p.r>0 && p.r<=2;}).sort((a,b)=>getP(a.id).r-getP(b.id).r).slice(0,5);
+
+  function block(title, list, emptyMsg){
+    return `<div class="stats-block"><h3>${title}</h3>${list.length? cardListHtml(list) : `<div class="empty">${emptyMsg}</div>`}</div>`;
+  }
+  return `
+  ${navHtml()}
+  <div class="section">
+    <h2>📊 Seu acompanhamento</h2>
+    ${block('❤️ Seus favoritos', favs, 'marque um ❤️ depois de assistir pra ele aparecer aqui.')}
+    ${block('👻 Seus mais assustadores', scary, 'avalie episódios de terror/perturbadores pra ver o ranking aqui.')}
+    ${block('🧠 Seus mais estranhos', weird, 'avalie episódios psicológicos/de mistério pra ver o ranking aqui.')}
+    ${block('😑 Seus mais decepcionantes', disappointing, 'nenhum episódio com nota baixa ainda — ótimo sinal.')}
+  </div>`;
+}
+
+function render(){
+  const app = document.getElementById('app');
+  if(view==='home') app.innerHTML = renderHome();
+  else if(view==='seasons') app.innerHTML = renderSeasons();
+  else if(view==='cut') app.innerHTML = renderCut();
+  else if(view==='stats') app.innerHTML = renderStats();
+  attachEvents();
+}
+
+/* ============ EVENTS ============ */
+function attachEvents(){
+  const app = document.getElementById('app');
+
+  app.querySelectorAll('[data-view]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{ view = btn.dataset.view; render(); });
+  });
+
+  const resetBtn = document.getElementById('reset-btn');
+  if(resetBtn){
+    resetBtn.addEventListener('click', async ()=>{
+      if(confirm('Isso vai apagar todo o seu progresso, notas e avaliações. Tem certeza?')){
+        progress = {};
+        try{ await window.storage.set('tz-progress-v1', JSON.stringify(progress), false); }catch(e){}
+        render();
+      }
+    });
+  }
+
+  const seasonBtns = app.querySelectorAll('[data-season]');
+  seasonBtns.forEach(btn=>{
+    btn.addEventListener('click', ()=>{ seasonFilter = btn.dataset.season; render(); });
+  });
+
+  const genreBtns = app.querySelectorAll('[data-genre]');
+  genreBtns.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const g = btn.dataset.genre;
+      if(genreFilter.has(g)) genreFilter.delete(g); else genreFilter.add(g);
+      render();
+    });
+  });
+
+  const essentialToggle = document.getElementById('essential-toggle');
+  if(essentialToggle){
+    essentialToggle.addEventListener('click', ()=>{ essentialOnly = !essentialOnly; render(); });
+  }
+
+  const searchInput = document.getElementById('search-input');
+  if(searchInput){
+    searchInput.addEventListener('input', (e)=>{
+      searchTerm = e.target.value;
+      const filtered = filterEpisodes(EPISODES);
+      document.getElementById('ep-list').innerHTML = cardListHtml(filtered);
+      attachCardEvents();
+    });
+  }
+
+  attachCardEvents();
+}
+
+function attachCardEvents(){
+  document.querySelectorAll('.card').forEach(card=>{
+    const id = card.dataset.id;
+
+    card.querySelector('.card-head').addEventListener('click', (e)=>{
+      if(e.target.closest('.chk')) return;
+      card.classList.toggle('open');
+    });
+
+    card.querySelector('.chk').addEventListener('click', (e)=>{
+      e.stopPropagation();
+      const p = getP(id);
+      setP(id, {w:!p.w});
+      updateProgressBars();
+      card.classList.toggle('watched');
+      e.target.classList.toggle('checked');
+    });
+
+    const favBtn = card.querySelector('.fav');
+    if(favBtn){
+      favBtn.addEventListener('click', ()=>{
+        const p = getP(id);
+        setP(id, {f:!p.f});
+        favBtn.textContent = !p.f ? '❤️' : '🤍';
+      });
+    }
+
+    const stars = card.querySelectorAll('.star');
+    stars.forEach(star=>{
+      star.addEventListener('click', ()=>{
+        const n = Number(star.dataset.n);
+        const p = getP(id);
+        const newVal = p.r===n ? 0 : n;
+        setP(id, {r:newVal});
+        stars.forEach(s=>s.classList.toggle('on', Number(s.dataset.n)<=newVal));
+      });
+    });
+
+    const note = card.querySelector('.note');
+    if(note){
+      note.addEventListener('change', ()=>{ setP(id, {note:note.value}); });
+    }
+  });
+}
+
+function updateProgressBars(){
+  document.querySelectorAll('.progress-card').forEach(pc=>{
+    // recompute by re-rendering current view's progress numbers only for simplicity
+  });
+  // simplest reliable approach: soft re-render header progress cards without losing open cards
+  const op = overallProgress();
+  const cp = cutProgress();
+  const nums = document.querySelectorAll('.progress-num');
+  if(view==='home' && nums.length>=2){
+    nums[0].textContent = `${op.w} / ${op.total}`;
+    nums[1].textContent = `${cp.w} / ${cp.total}`;
+    document.querySelectorAll('.bar-fill')[0].style.width = (op.w/op.total*100).toFixed(1)+'%';
+    document.querySelectorAll('.bar-fill')[1].style.width = (cp.w/cp.total*100).toFixed(1)+'%';
+  } else if(view==='seasons' && nums.length>=1){
+    const filtered = filterEpisodes(EPISODES);
+    const w = filtered.filter(ep=>getP(ep.id).w).length;
+    nums[0].textContent = `${w} / ${filtered.length}`;
+    document.querySelectorAll('.bar-fill')[0].style.width = (filtered.length? (w/filtered.length*100):0).toFixed(1)+'%';
+  } else if(view==='cut' && nums.length>=1){
+    nums[0].textContent = `${cp.w} / ${cp.total}`;
+    document.querySelectorAll('.bar-fill')[0].style.width = (cp.w/cp.total*100).toFixed(1)+'%';
+  }
+}
+
+/* ============ INIT ============ */
+loadProgress();
+</script>
+</body>
+</html>
